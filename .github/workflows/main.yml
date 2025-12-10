@@ -1,7 +1,12 @@
 name: CI-Node
 on:
   workflow_dispatch:
-
+  
+permissions:
+  contents: read
+  actions: read
+  id-token: write
+  
 jobs:
   build:
     runs-on: ubuntu-latest
