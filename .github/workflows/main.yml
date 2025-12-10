@@ -1,0 +1,26 @@
+name: CI-Node
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6.0.1
+      - name: setup NodeJS
+        uses: actions/setup-node@v6.1.0
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install Deps
+        run: npm ci 
+      - name: run Tests
+        run: npm test
+      - name: Build Project
+        run: npm run build
+      - name: upload dist as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-build-${{ github.run_number }}
+          path: ./*
